@@ -3,51 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARABELLUM | PBLM.777 [SUPREME CORE]</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>PBLM.777 | Guns.lol Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff0033;
+            --bg-color: #050505;
+            --card-bg: rgba(15, 15, 15, 0.75);
+            --text-color: #ffffff;
+            --accent-glow: rgba(255, 0, 51, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efeito de Fundo Matrix / Grid Cyberpunk */
+        canvas#bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Cartão Central (Estilo Guns.lol) */
+        .profile-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 420px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 0 25px var(--accent-glow);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+            object-fit: cover;
+        }
+
+        .username {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            background: rgba(255, 0, 51, 0.2);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bio {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 20px;
+            min-height: 24px;
+        }
+
+        /* Links de Redes e Acesso */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 51, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .link-btn i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo glitch" data-text="PBLM.777">PBLM.777</a>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="perfis.html">Perfis</a></li>
-                <li><a href="terminal.html">Terminal</a></li>
-                <li><a href="noticias.html">Notícias</a></li>
-                <li><a href="galeria.html">Galeria</a></li>
-                <li><a href="ferramentas.html">Ferramentas</a></li>
-                <li><a href="login.html">Acesso Restrito</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="container">
-        <div class="card" style="text-align: center; padding: 70px 20px;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 15px;">PARABELLUM PBLM.777</h1>
-            <p style="color: var(--text-muted); margin-bottom: 35px; font-size: 1.2rem;">Ecossistema Avançado de Inteligência, Criptografia e Operações de Rede.</p>
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <a href="terminal.html" class="btn">🚀 Acessar Terminal Hacker</a>
-                <a href="ferramentas.html" class="btn" style="background: var(--dark-red);">⚙️ Utilitários Core</a>
-                <a href="login.html" class="btn">🔐 Painel Seguro</a>
-            </div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="profile-card">
+        <div class="avatar-container">
+            <img src="https://i.imgur.com/83p731F.png" alt="Avatar" class="avatar">
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-            <div class="card">
-                <h3>⚡ Status da Rede</h3>
-                <p style="color: #00ff66; margin-top: 10px;">[ONLINE] Servidores criptografados operando com zero latência em nós descentralizados.</p>
-            </div>
-            <div class="card">
-                <h3>🛡️ Blindagem de Dados</h3>
-                <p style="color: var(--text-muted); margin-top: 10px;">Protocolos de segurança integrados via Firebase Auth e túneis seguros AES-256.</p>
-            </div>
+        <h1 class="username">PARABELLUM</h1>
+        
+        <div class="badges">
+            <span class="badge"><i class="fa-solid fa-code"></i> DEV</span>
+            <span class="badge"><i class="fa-solid fa-shield-halved"></i> 777</span>
+        </div>
+
+        <p class="bio">Si vis pacem, para bellum.</p>
+
+        <div class="links-container">
+            <a href="terminal.html" class="link-btn">
+                <i class="fa-solid fa-terminal"></i>
+                <span>TERMINAL</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="login.html" class="link-btn">
+                <i class="fa-solid fa-user-lock"></i>
+                <span>ACESSO RESTRITO</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="https://github.com/k9dxx" target="_blank" class="link-btn">
+                <i class="fa-brands fa-github"></i>
+                <span>GITHUB</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 PARABELLUM PBLM.777. Operação Global Autorizada.</p>
-    </footer>
-    <script src="js/matrix.js"></script>
+    <script>
+        // Animação de Fundo (Matrix Rain simples)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01777PBLM';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff0033';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 40);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
