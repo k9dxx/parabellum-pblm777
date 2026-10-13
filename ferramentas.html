@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferramentas | PBLM.777</title>
+    <title>Ferramentas Avançadas | PBLM.777</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,28 +23,58 @@
     </header>
 
     <div class="container">
-        <h2>UTILITÁRIOS DE OPERAÇÃO</h2>
+        <h2>UTILITÁRIOS SUPREME DE OPERAÇÃO</h2>
+        
         <div class="card">
-            <h3>Gerador de Senha Segura</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Gere chaves randômicas com caracteres especiais.</p>
-            <input type="text" id="pass-output" readonly placeholder="Clique no botão para gerar">
-            <button class="btn" onclick="generatePass()">Gerar Chave</button>
+            <h3>Gerador de Chaves e Senhas Blindadas</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Gere chaves aleatórias de alta complexidade com caracteres especiais.</p>
+            <input type="text" id="pass-output" readonly placeholder="Clique no botão para gerar chave">
+            <button class="btn" onclick="generatePass()">Gerar Chave Segura</button>
+        </div>
+
+        <div class="card">
+            <h3>Codificador / Decodificador Base64</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Converta textos normais em Base64 para transmissão segura.</p>
+            <textarea id="b64-input" rows="3" placeholder="Digite o texto aqui..."></textarea>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" onclick="encodeB64()">Codificar</button>
+                <button class="btn" style="background: var(--dark-red);" onclick="decodeB64()">Decodificar</button>
+            </div>
         </div>
     </div>
 
     <script>
         function generatePass() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
             let pass = "";
-            for (let i = 0; i < 16; i++) {
+            for (let i = 0; i < 20; i++) {
                 pass += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             document.getElementById('pass-output').value = pass;
+        }
+
+        function encodeB64() {
+            const val = document.getElementById('b64-input').value;
+            try {
+                document.getElementById('b64-input').value = btoa(val);
+            } catch (e) {
+                alert('Erro ao codificar.');
+            }
+        }
+
+        function decodeB64() {
+            const val = document.getElementById('b64-input').value;
+            try {
+                document.getElementById('b64-input').value = atob(val);
+            } catch (e) {
+                alert('Texto Base64 inválido.');
+            }
         }
     </script>
 
     <footer>
         <p>&copy; 2026 PARABELLUM PBLM.777</p>
     </footer>
+    <script src="js/matrix.js"></script>
 </body>
 </html>
