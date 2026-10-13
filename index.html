@@ -32,7 +32,6 @@
             position: relative;
         }
 
-        /* Efeito de Fundo Matrix / Grid Cyberpunk */
         canvas#bg-canvas {
             position: absolute;
             top: 0;
@@ -42,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Cartão Central (Estilo Guns.lol) */
         .profile-card {
             position: relative;
             z-index: 10;
@@ -108,7 +106,6 @@
             min-height: 24px;
         }
 
-        /* Links de Redes e Acesso */
         .links-container {
             display: flex;
             flex-direction: column;
@@ -138,6 +135,34 @@
 
         .link-btn i {
             font-size: 1.2rem;
+        }
+
+        /* Botão de Áudio Flutuante */
+        .audio-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--primary-color);
         }
 
         @keyframes fadeIn {
@@ -185,8 +210,17 @@
         </div>
     </div>
 
+    <!-- Player de Áudio -->
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mp3">
+    </audio>
+
+    <div id="audio-control" class="audio-btn" title="Reproduzir Áudio">
+        <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
+    </div>
+
     <script>
-        // Animação de Fundo (Matrix Rain simples)
+        // Animação Matrix
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -221,6 +255,34 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+        });
+
+        // Controlo do Áudio
+        const music = document.getElementById('bg-music');
+        const audioControl = document.getElementById('audio-control');
+        const audioIcon = document.getElementById('audio-icon');
+        let isPlaying = false;
+
+        audioControl.addEventListener('click', () => {
+            if (!music.src || music.src === window.location.href) {
+                alert("Insira um link de .mp3 válido no código para tocar música!");
+                return;
+            }
+
+            if (!isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    audioIcon.classList.remove('fa-volume-xmark');
+                    audioIcon.classList.add('fa-volume-high');
+                }).catch(e => {
+                    console.log("Erro ao reproduzir: ", e);
+                });
+            } else {
+                music.pause();
+                isPlaying = false;
+                audioIcon.classList.remove('fa-volume-high');
+                audioIcon.classList.add('fa-volume-xmark');
+            }
         });
     </script>
 </body>
