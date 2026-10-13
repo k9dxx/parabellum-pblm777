@@ -4,34 +4,188 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | PBLM.777</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff0033;
+            --bg-color: #050505;
+            --card-bg: rgba(15, 15, 15, 0.75);
+            --text-color: #ffffff;
+            --accent-glow: rgba(255, 0, 51, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        canvas#bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .profile-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 420px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 0 25px var(--accent-glow);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+            object-fit: cover;
+        }
+
+        .username {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .login-form label {
+            font-size: 0.85rem;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-form input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .btn-submit:hover {
+            background: #ff1a4d;
+            box-shadow: 0 0 25px var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        #error-msg {
+            color: var(--primary-color);
+            margin-top: 12px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo">PBLM.777</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="terminal.html">Terminal</a></li>
-                <li><a href="login.html" class="active">Acesso Restrito</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="container" style="max-width: 450px;">
-        <div class="card">
-            <h2>AUTENTICAÇÃO DE OPERADOR</h2>
-            <form id="login-form">
-                <label>E-mail:</label>
-                <input type="email" id="email" required placeholder="operador@pblm777.net">
-                
-                <label>Senha:</label>
-                <input type="password" id="password" required placeholder="********">
+    <canvas id="bg-canvas"></canvas>
 
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Entrar no Sistema</button>
-            </form>
-            <p id="error-msg" style="color: var(--primary-red); margin-top: 15px; font-size: 0.9rem; text-align: center;"></p>
+    <div class="profile-card">
+        <div class="avatar-container">
+            <img src="https://i.imgur.com/83p731F.png" alt="Avatar" class="avatar">
         </div>
+
+        <h1 class="username">AUTENTICAÇÃO DE OPERADOR</h1>
+
+        <form id="login-form" class="login-form">
+            <div>
+                <label>E-MAIL</label>
+                <input type="email" id="email" required placeholder="operador@pblm777.net">
+            </div>
+            
+            <div>
+                <label>SENHA</label>
+                <input type="password" id="password" required placeholder="********">
+            </div>
+
+            <button type="submit" class="btn-submit">ENTRAR NO SISTEMA</button>
+        </form>
+
+        <p id="error-msg"></p>
+
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Voltar ao Início</a>
     </div>
 
     <script type="module">
@@ -60,10 +214,47 @@
                 await signInWithEmailAndPassword(auth, email, password);
                 window.location.href = 'dashboard.html';
             } catch (error) {
-                errorMsg.innerText = "Erro de Acesso: " + error.message;
+                errorMsg.innerText = "Erro: " + error.message;
             }
         });
     </script>
-    <script src="js/matrix.js"></script>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01777PBLM';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff0033';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 40);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
