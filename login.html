@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | PBLM.777</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">PBLM.777</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="terminal.html">Terminal</a></li>
+                <li><a href="login.html" class="active">Acesso Restrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container" style="max-width: 450px;">
+        <div class="card">
+            <h2>AUTENTICAÇÃO DE OPERADOR</h2>
+            <form id="login-form">
+                <label>E-mail:</label>
+                <input type="email" id="email" required placeholder="operador@pblm777.net">
+                
+                <label>Senha:</label>
+                <input type="password" id="password" required placeholder="********">
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Entrar no Sistema</button>
+            </form>
+            <p id="error-msg" style="color: var(--primary-red); margin-top: 15px; font-size: 0.9rem; text-align: center;"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "SEU_SENDER_ID",
+            appId: "SEU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                errorMsg.innerText = "Erro de Acesso: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

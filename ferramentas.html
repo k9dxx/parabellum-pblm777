@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramentas | PBLM.777</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">PBLM.777</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="perfis.html">Perfis</a></li>
+                <li><a href="terminal.html">Terminal</a></li>
+                <li><a href="noticias.html">Notícias</a></li>
+                <li><a href="galeria.html">Galeria</a></li>
+                <li><a href="ferramentas.html" class="active">Ferramentas</a></li>
+                <li><a href="login.html">Acesso Restrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>UTILITÁRIOS DE OPERAÇÃO</h2>
+        <div class="card">
+            <h3>Gerador de Senha Segura</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Gere chaves randômicas com caracteres especiais.</p>
+            <input type="text" id="pass-output" readonly placeholder="Clique no botão para gerar">
+            <button class="btn" onclick="generatePass()">Gerar Chave</button>
+        </div>
+    </div>
+
+    <script>
+        function generatePass() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+            let pass = "";
+            for (let i = 0; i < 16; i++) {
+                pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('pass-output').value = pass;
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2026 PARABELLUM PBLM.777</p>
+    </footer>
+</body>
+</html>

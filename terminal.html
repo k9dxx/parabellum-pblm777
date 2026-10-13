@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal | PBLM.777</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .terminal-box {
+            background: #000;
+            border: 1px solid var(--primary-red);
+            height: 450px;
+            padding: 15px;
+            overflow-y: auto;
+            font-family: 'Courier New', Courier, monospace;
+            box-shadow: var(--glow);
+            margin-bottom: 15px;
+        }
+        .terminal-output {
+            color: #00ff66;
+            white-space: pre-wrap;
+            margin-bottom: 10px;
+        }
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+        }
+        .prompt-symbol {
+            color: var(--primary-red);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .terminal-input-line input {
+            background: transparent;
+            border: none;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            margin-bottom: 0;
+            padding: 0;
+        }
+        .terminal-input-line input:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">PBLM.777</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="perfis.html">Perfis</a></li>
+                <li><a href="terminal.html" class="active">Terminal</a></li>
+                <li><a href="noticias.html">Notícias</a></li>
+                <li><a href="galeria.html">Galeria</a></li>
+                <li><a href="ferramentas.html">Ferramentas</a></li>
+                <li><a href="login.html">Acesso Restrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>CONSOLE DE COMANDO // PBLM.777</h2>
+        <div class="terminal-box" id="terminal-box">
+            <div class="terminal-output">PARABELLUM System Kernel v7.7.7 [Secure Shell initialized]
+Digite 'help' para listar os comandos disponíveis.
+------------------------------------------------------------</div>
+            <div id="history"></div>
+        </div>
+        <div class="terminal-input-line card" style="padding: 10px 15px; margin-bottom: 0;">
+            <span class="prompt-symbol">root@pblm777:~$</span>
+            <input type="text" id="term-input" autofocus autocomplete="off" placeholder="Digite um comando...">
+        </div>
+    </div>
+
+    <script src="js/terminal.js"></script>
+</body>
+</html>
